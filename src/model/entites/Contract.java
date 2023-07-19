@@ -48,11 +48,6 @@ public class Contract {
 		return list;
 	}
 	
-	
-	public void setList(List<Installment> list) {
-		this.list = list;
-	}
-
 	public String toString() {
 		String valor="";
 		for(Installment i : list) {

@@ -11,6 +11,11 @@ public class ContractService {
 		
 	}
 	
+	public ContractService(OnlinePaymentService service) {
+		this.service = service;
+	}
+
+
 	public OnlinePaymentService getService() {
 		return service;
 	}
@@ -20,11 +25,10 @@ public class ContractService {
 	}
 
 	public void processContract(Contract contract, Integer months) {
-		service = new PaypalService();
 		for( int i =1; i<=months ;i++) {
-			double amount =service.interest(contract.getTotalValue()/months,i);
-			double valor =service.PaymentFree(amount);
-			contract.getList().add(new Installment(contract.getDate().plusMonths(i),valor));
+			double interest =service.interest(contract.getTotalValue()/months,i);
+			double fee =service.PaymentFree(interest);
+			contract.getList().add(new Installment(contract.getDate().plusMonths(i),fee));
 		}
 	}
 }
